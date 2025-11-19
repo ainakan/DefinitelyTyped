@@ -1,5 +1,5 @@
-// Type definitions for non-npm package frida-gum 18.0
-// Project: https://github.com/frida/frida
+// Type definitions for non-npm package ainakan-gum 18.0
+// Project: https://github.com/ainakan/ainakan
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,7 +56,7 @@ declare function ptr(value: string | number): NativePointer;
 declare const NULL: NativePointer;
 
 /**
- * Requests callback to be called on the next message received from your Frida-based application.
+ * Requests callback to be called on the next message received from your Ainakan-based application.
  *
  * This will only give you one message, so you need to call `recv()` again to receive the next one.
  */
@@ -64,7 +64,7 @@ declare function recv(callback: MessageCallback): MessageRecvOperation;
 
 /**
  * Requests callback to be called when the next message of the given `type` has been received from your
- * Frida-based application.
+ * Ainakan-based application.
  *
  * This will only give you one message, so you need to call `recv()` again to receive the next one.
  */
@@ -80,7 +80,7 @@ interface MessageRecvOperation {
 }
 
 /**
- * Sends a JSON-serializable message to your Frida-based application,
+ * Sends a JSON-serializable message to your Ainakan-based application,
  * with (optionally) some raw binary data included. The latter is useful
  * if you e.g. dumped some memory using `NativePointer#readByteArray()`.
  *
@@ -90,7 +90,7 @@ interface MessageRecvOperation {
 declare function send(message: any, data?: ArrayBuffer | number[] | null): void;
 
 /**
- * Calls `func` after `delay` milliseconds, or if omitted: as soon as Frida's
+ * Calls `func` after `delay` milliseconds, or if omitted: as soon as Ainakan's
  * JavaScript thread is idle. Any additional `params` are passed along.
  *
  * Returns an id that can be passed to `clearTimeout()` to cancel it.
@@ -124,7 +124,7 @@ declare function clearInterval(id: IntervalId): void;
 type IntervalId = number;
 
 /**
- * Schedules `func` to be called on Frida's JavaScript thread, optionally passing it the provided params.
+ * Schedules `func` to be called on Ainakan's JavaScript thread, optionally passing it the provided params.
  * Returns an id that can be passed to clearImmediate() to cancel it.
  */
 declare function setImmediate(func: ScheduledCallback, ...params: any[]): ImmediateId;
@@ -156,14 +156,14 @@ interface RpcExports {
 
 type AnyFunction = (...args: any[]) => any;
 
-declare namespace Frida {
+declare namespace Ainakan {
     /**
-     * The current Frida version.
+     * The current Ainakan version.
      */
     const version: string;
 
     /**
-     * The current size – in bytes – of Frida’s private heap, which is shared by all scripts and Frida’s own runtime.
+     * The current size – in bytes – of Ainakan’s private heap, which is shared by all scripts and Ainakan’s own runtime.
      * This is useful for keeping an eye on how much memory your instrumentation is using out of the total consumed by
      * the hosting process.
      */
@@ -286,7 +286,7 @@ declare namespace Process {
     const pointerSize: number;
 
     /**
-     * Whether Frida will avoid modifying existing code in memory and will not try to run unsigned code.
+     * Whether Ainakan will avoid modifying existing code in memory and will not try to run unsigned code.
      * Currently this property will always be set to Optional unless you are using Gadget and have configured
      * it to assume that code-signing is required. This property allows you to determine whether the Interceptor
      * API is off limits, and whether it is safe to modify code or run unsigned code.
@@ -367,8 +367,8 @@ declare namespace Process {
      * - Modify registers and memory to recover from the exception.
      *
      * You should return `true` if you did handle the exception, in which case
-     * Frida will resume the thread immediately. If you do not return `true`,
-     * Frida will forward the exception to the hosting process' exception
+     * Ainakan will resume the thread immediately. If you do not return `true`,
+     * Ainakan will forward the exception to the hosting process' exception
      * handler, if it has one, or let the OS terminate the process.
      */
     function setExceptionHandler(callback: ExceptionHandlerCallback): void;
@@ -591,7 +591,7 @@ declare namespace Memory {
     function scanSync(address: NativePointerValue, size: number | UInt64, pattern: string | MatchPattern): MemoryScanMatch[];
 
     /**
-     * Allocates `size` bytes of memory on Frida's private heap, or, if `size` is a multiple of Process#pageSize,
+     * Allocates `size` bytes of memory on Ainakan's private heap, or, if `size` is a multiple of Process#pageSize,
      * one or more raw memory pages managed by the OS. The allocated memory will be released when the returned
      * NativePointer value gets garbage collected. This means you need to keep a reference to it while the pointer
      * is being used by code outside the JavaScript runtime.
@@ -602,7 +602,7 @@ declare namespace Memory {
     function alloc(size: number | UInt64, options?: MemoryAllocOptions): NativePointer;
 
     /**
-     * Allocates, encodes and writes out `str` as a UTF-8 string on Frida's private heap.
+     * Allocates, encodes and writes out `str` as a UTF-8 string on Ainakan's private heap.
      * See Memory#alloc() for details about its lifetime.
      *
      * @param str String to allocate.
@@ -610,7 +610,7 @@ declare namespace Memory {
     function allocUtf8String(str: string): NativePointer;
 
     /**
-     * Allocates, encodes and writes out `str` as a UTF-16 string on Frida's private heap.
+     * Allocates, encodes and writes out `str` as a UTF-16 string on Ainakan's private heap.
      * See Memory#alloc() for details about its lifetime.
      *
      * @param str String to allocate.
@@ -618,7 +618,7 @@ declare namespace Memory {
     function allocUtf16String(str: string): NativePointer;
 
     /**
-     * Allocates, encodes and writes out `str` as an ANSI string on Frida's private heap.
+     * Allocates, encodes and writes out `str` as an ANSI string on Ainakan's private heap.
      * See Memory#alloc() for details about its lifetime.
      *
      * @param str String to allocate.
@@ -3206,7 +3206,7 @@ interface CSymbols {
 /**
  * Builtins present when constructing a CModule from C source code.
  *
- * This is typically used by a scaffolding tool such as `frida-create` in order
+ * This is typically used by a scaffolding tool such as `ainakan-create` in order
  * to set up a build environment that matches what CModule uses.
  */
 interface CModuleBuiltins {
@@ -3240,8 +3240,8 @@ declare class Instruction {
      * Parses the instruction at the `target` address in memory.
      *
      * Note that on 32-bit ARM this address must have its least significant bit
-     * set to 0 for ARM functions, and 1 for Thumb functions. Frida takes care
-     * of this detail for you if you get the address from a Frida API, for
+     * set to 0 for ARM functions, and 1 for Thumb functions. Ainakan takes care
+     * of this detail for you if you get the address from a Ainakan API, for
      * example `Module.getExportByName()`.
      *
      * @param target Memory location containing instruction to parse.
@@ -4866,7 +4866,7 @@ declare namespace Java {
         name: string;
 
         /**
-         * Frida type name. For example `pointer` for a handle.
+         * Ainakan type name. For example `pointer` for a handle.
          */
         type: string;
 
@@ -5025,7 +5025,7 @@ declare namespace Java {
         /**
          * Naming convention to use for temporary files.
          *
-         * Defaults to `{ prefix: "frida", suffix: "dat" }`.
+         * Defaults to `{ prefix: "ainakan", suffix: "dat" }`.
          */
         tempFileNaming: TempFileNaming;
 
@@ -5100,7 +5100,7 @@ declare namespace Java {
         /**
          * File name prefix to use.
          *
-         * For example: `frida`.
+         * For example: `ainakan`.
          */
         prefix: string;
 
@@ -5754,7 +5754,7 @@ declare class X86Relocator {
      * Skips the instruction that would have been written next,
      * but without a label for internal use. This breaks relocation of branches to
      * locations inside the relocated range, and is an optimization for use-cases
-     * where all branches are rewritten (e.g. Frida's Stalker).
+     * where all branches are rewritten (e.g. Ainakan's Stalker).
      */
     skipOneNoLabel(): void;
 
@@ -5767,7 +5767,7 @@ declare class X86Relocator {
      * Writes the next buffered instruction, but without a
      * label for internal use. This breaks relocation of branches to locations
      * inside the relocated range, and is an optimization for use-cases where all
-     * branches are rewritten (e.g. Frida's Stalker).
+     * branches are rewritten (e.g. Ainakan's Stalker).
      */
     writeOneNoLabel(): boolean;
 

@@ -1,4 +1,4 @@
-Frida.version; // $ExpectType string
+Ainakan.version; // $ExpectType string
 
 // @ts-expect-error
 SourceMap;

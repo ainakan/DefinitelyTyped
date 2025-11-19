@@ -195,7 +195,7 @@ export interface AppInfo {
     versionName: string | null;
 }
 
-export const REMOTE_CACHE_ROOT = '/data/local/tmp/appium_cache';
+export const REMOTE_CACHE_ROOT = '/data/android/ainakan/appium_cache';
 
 declare const apkUtilsMethods: ApkUtils;
 export default apkUtilsMethods;

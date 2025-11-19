@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "frida-gum-tests.ts"
+        "ainakan-gum-tests.ts"
     ]
 }
